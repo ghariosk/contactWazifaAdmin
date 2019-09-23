@@ -31,7 +31,17 @@ exports.handler = function async (event, context, callback) {
         Source: 'Wazifa No Reply <no-reply@wazifa.solutions>',
     }, function (err, data) {
         console.log(err,data)
-        if (err) callback(null, { "message": "Successfully executed", data }); // an error occurred
-        else callback(null, {data});           // successful response
+            const response = {
+            statusCode: 200,
+           headers: {
+            'Access-Control-Allow-Origin' : '*',
+            'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+            'Access-Control-Allow-Credentials' : true,
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify({ "message": "Success" })
+            };
+        if (err) callback(null, response ); // an error occurred
+        else callback(null, response);           // successful response
     });
 }
