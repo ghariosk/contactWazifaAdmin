@@ -1,0 +1,136 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "eac5edb9-9d53-4c3b-b1de-4bd636794435": {
+        "id": "eac5edb9-9d53-4c3b-b1de-4bd636794435",
+        "parent": null,
+        "name": "contactWazifaAdmin",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "2b8214e5-1506-4dc2-bd79-6dbab93055a3"
+        ],
+        "isRemovable": false,
+        "filePath": "contactWazifaAdmin"
+      },
+      "2b8214e5-1506-4dc2-bd79-6dbab93055a3": {
+        "id": "2b8214e5-1506-4dc2-bd79-6dbab93055a3",
+        "parent": "eac5edb9-9d53-4c3b-b1de-4bd636794435",
+        "name": "lambda.js",
+        "type": "JS_LAMBDA",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "contactWazifaAdmin/lambda.js",
+        "code": "let AWS = require('aws-sdk');\nconst ses = new AWS.SES();\n\nexports.handler = function async (event, context, callback) {\n    console.log(event)\n\n    var {who,email,name,phoneNumber,city} = event.body\n    var data \n    if (who == \"user\") {\n        data = `${name} wants to know more about Wazifa. You can reach them at ${email} or ${phoneNumber}. He lives in ${city}`\n    } else {\n        data = `${name} wants to join Wazifa. You can reach them at ${email} or ${phoneNumber}. They operate from ${city}`\n    }\n\n    ses.sendEmail({\n        Destination: {\n            ToAddresses: ['karlgharios@hotmail.com', 'knhatem@gmail.com'],\n            CcAddresses: [],\n            BccAddresses: []\n        },\n        Message: {\n            Body: {\n                Text: {\n                    Data: data\n                }\n            },\n            Subject: {\n                Data: 'Contact Request from' + name\n            }\n        },\n        Source: 'Wazifa No Reply <no-reply@wazifa.solutions>',\n    }, function (err, data) {\n        console.log(err,data)\n        if (err) callback(null, { \"message\": \"Successfully executed\", data }); // an error occurred\n        else callback(null, {data});           // successful response\n    });\n}",
+        "config": {
+          "runtime": "nodejs8.10",
+          "handler": "handler",
+          "timeout": 60,
+          "memory": 128,
+          "layers": []
+        },
+        "triggers": [
+          {
+            "resourceName": "apigusEast1WazifaAdmincontactUspost",
+            "config": {}
+          }
+        ],
+        "testCases": {
+          "f76f64f9-b4fc-49ec-9d9b-5a7347b232b4": {
+            "id": "f76f64f9-b4fc-49ec-9d9b-5a7347b232b4",
+            "name": "Unnamed event",
+            "functionId": "2b8214e5-1506-4dc2-bd79-6dbab93055a3",
+            "event": "{\n    \"body\": {\n        \"type\": \"user\",\n        \"email\": \"karlgharios@hotmail.com\",\n        \"phoneNumber\": \"03244575\",\n        \"name\": \"Karl Gharios\",\n        \"city\": \"Beit Mery\"\n    }\n}"
+          }
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "eac5edb9-9d53-4c3b-b1de-4bd636794435",
+    "openFiles": [
+      "2b8214e5-1506-4dc2-bd79-6dbab93055a3"
+    ],
+    "currentFileId": "2b8214e5-1506-4dc2-bd79-6dbab93055a3",
+    "resources": {
+      "ses-no-reply@wazifa.solutions": {
+        "name": "ses-no-reply@wazifa.solutions",
+        "type": "SES",
+        "config": {
+          "selectedIdentity": "no-reply@wazifa.solutions",
+          "projectRegion": "us-east-1",
+          "params": {
+            "to": "karlgharios@hotmail.com,knhatem@gmail.com",
+            "cc": "",
+            "bcc": "",
+            "subject": "Contact Form",
+            "body": {
+              "text": "XX wants to know more about us",
+              "html": ""
+            }
+          }
+        }
+      },
+      "apigusEast1WazifaAdmincontactUspost": {
+        "name": "apigusEast1WazifaAdmincontactUspost",
+        "type": "API_GATEWAY",
+        "config": {
+          "selectedRegion": "us-east-1",
+          "apiMode": 0,
+          "apiName": "WazifaAdmin",
+          "endpointType": "EDGE",
+          "resourceMode": 0,
+          "resourceName": "contactUs",
+          "resourcePath": "/contactUs",
+          "restMethod": "POST",
+          "proxyIntegration": false,
+          "enableCORS": true,
+          "stageMode": 0,
+          "stageName": "Prod",
+          "mode": 0
+        }
+      }
+    },
+    "customTemplate": {
+      "dialect": null,
+      "definitions": {}
+    },
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "aws-sdk": {
+          "name": "aws-sdk",
+          "language": "javascript",
+          "version": "2.176.0",
+          "dev": true,
+          "notRemovable": false
+        }
+      }
+    }
+  },
+  "PROJECT_META": {
+    "projectName": "contactWazifaAdmin",
+    "projectDescription": "",
+    "projectVersion": "1.0.0",
+    "projectRegion": "us-east-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1569251600411
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "contactWazifaAdmin",
+      "url": "https://github.com/ghariosk/contactWazifaAdmin"
+    }
+  }
+}
