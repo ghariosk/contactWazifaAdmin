@@ -38,6 +38,10 @@
           {
             "resourceName": "apigusEast1WazifaAdmincontactUspost",
             "config": {}
+          },
+          {
+            "resourceName": "apigusEast1WazifaAdmincontactUspost",
+            "config": {}
           }
         ],
         "testCases": {
@@ -82,12 +86,7 @@
           "selectedRegion": "us-east-1",
           "apiMode": 0,
           "apiName": "WazifaAdmin",
-          "apiId": "goz1z1btr0",
           "endpointType": "EDGE",
-          "rootResourceId": "5hpirwd6zl",
-          "existingResources": {
-            "/": "5hpirwd6zl"
-          },
           "resourceMode": 0,
           "resourceName": "contactUs",
           "resourcePath": "/contactUs",
@@ -133,7 +132,7 @@
     "projectRegion": "us-east-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1569254011612
+    "lastSave": 1569254215564
   },
   "VCS_STATE": {
     "provider": "GitHub",
